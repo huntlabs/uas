@@ -1,0 +1,137 @@
+    <div class="container main-container">
+        <div class="users-show  row">
+            <div class="col-md-3">
+                <div class="box">
+
+                    <div class="padding-sm user-basic-info">
+                        <div style="">
+
+                            <div class="media">
+                                <div class="media-left">
+                                    <div class="image">
+										{% import app.common; %}
+										<a href="/user/editAvatar/{{var.uid}}" class="popover-with-html" data-content="修改头像">
+											<img class="media-object avatar-112 avatar img-thumbnail" src="{{FurlHelper.avatarLink(var.uid.toString)}}">
+                                        </a>
+                                    </div>
+
+                                </div>
+                                <div class="media-body">
+                                    <h3 class="media-heading">
+										{{var.data["username"]}}
+                                    </h3>
+                                    <div class="item">
+										{{var.data["description"]}}
+                                    </div>
+                                    <div class="item number">
+										注册于 <span class="timeago">{{TimeHelper.getFormatDate(var.data["created_at"].toString)}}</span>
+                                    </div>
+
+                                    <div class="item number">
+										活跃于 <span class="timeago">{{TimeHelper.getFormatDate(var.data["updated_at"].toString)}}</span>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr>
+
+                        <div class="follow-info row">
+                            <div class="col-xs-4">
+								<a class="counter" href="/user/answers/{{var.uid}}">{{FurlHelper.userAnswersCount(var.uid.toString)}}</a>
+								<a class="text" href="/user/answers/{{var.uid}}">评论</a>
+                            </div>
+                            <div class="col-xs-4">
+								<a class="counter" href="/user/questions/{{var.uid}}">{{FurlHelper.userQuestionsCount(var.uid.toString)}}</a>
+								<a class="text" href="/user/questions/{{var.uid}}">话题</a>
+                            </div>
+                        </div>
+
+                        <hr>
+
+						<a class="btn btn-primary btn-block" href="/user/editInfo/{{var.uid}}" id="user-edit-button">
+                            <i class="fa fa-edit"></i> 编辑个人资料
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="main-col col-md-9 left-col">
+
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        最近话题
+                    </div>
+
+                    <div class="panel-body">
+						<!--
+                        <ul class="list-group">
+
+                            <li class="list-group-item">
+
+                                <a href="https://laravel-china.org/topics/3043" title="第一次发帖">
+                                    第一次发帖
+                                </a>
+
+                                <span class="meta">
+
+                                    <span> ⋅ </span>
+                                    0 点赞
+                                    <span> ⋅ </span>
+                                    0 回复
+                                    <span> ⋅ </span>
+                                    <span class="timeago popover-with-html" data-content="2016-10-12 14:50:22" data-original-title="" title="">几秒前</span>
+
+                                </span>
+
+                            </li>
+
+                        </ul>
+						-->
+                        <!--如果没数据,显示下面的-->
+                        <div class="empty-block">没有任何数据~~</div>
+                    </div>
+                </div>
+
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        最新评论
+                    </div>
+					<!--
+                    <div class="panel-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">
+
+                                <a href="https://laravel-china.org/topics/2752" title="Laravel 5.3 文档翻译召集 - 持续招募中" class="remove-padding-left">
+                                    Laravel 5.3 文档翻译召集 - 持续招募中
+                                </a>
+                                  <span class="meta">
+                                     at <span class="timeago popover-with-html" title="" data-content="2016-10-12 14:49:04" data-original-title="2016-10-12 14:49:04">2分钟前</span>
+                                  </span>
+
+                                <div class="reply-body markdown-reply content-body">
+                                    <p>好顶赞</p>
+                                </div>
+
+
+                            </li>
+                        </ul>
+					-->
+                        <!--如果没数据,显示下面的-->
+                        <div class="empty-block">还未留下任何评论~~</div>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>

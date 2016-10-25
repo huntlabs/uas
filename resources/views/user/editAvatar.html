@@ -1,0 +1,52 @@
+<div class="container main-container">
+	<div class="users-show">
+		{% import app.common; %}
+		<div class="col-md-3 box" style="padding: 15px 15px;">
+			<div class="padding-md">
+				<div class="list-group text-center">
+					<a href="/user/editInfo/{{var.uid}}" class="list-group-item">
+						<i class="text-md fa fa-list-alt" aria-hidden="true"></i>
+						&nbsp;个人信息
+					</a>
+					<a href="/user/editAvatar/{{var.uid}}" class="list-group-item active">
+						<i class="text-md fa fa-picture-o" aria-hidden="true"></i>
+						&nbsp;修改头像
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="main-col col-md-9 left-col">
+
+			<div class="panel panel-default padding-md">
+
+				<div class="panel-body padding-bg">
+
+					<h2><i class="fa fa-picture-o" aria-hidden="true"></i> 请选择图片</h2>
+					<hr>
+
+
+					<form method="POST" action="/user/editAvatar" enctype="application/x-www-form-urlencoded"" accept-charset="UTF-8">
+						<input name="_method" type="hidden" value="PATCH">
+						<input type="hidden" name="_token" value="ssuyKq3fE1QbTGBuODV6gROnwB4vMqIQhrMySNwB">
+
+						<div id="image-preview-div">
+							<label for="exampleInputFile">请选择图片：</label>
+							<br>
+							<img id="preview-img" class="avatar-preview-img" src="{{FurlHelper.avatarLink(var.data["id"].toString)}}">
+						</div>
+
+						<div class="form-group">
+							<input type="file" name="file_upload" id="file_upload" multipart="true" />
+							<input type="hidden" name="avatar" id="avatar" value=""/>
+						</div>
+
+						<button class="btn btn-lg btn-primary" id="upload-button" type="submit" >上传头像</button>
+
+					</form>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

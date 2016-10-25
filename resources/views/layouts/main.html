@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+{{ render!"shared/header.html" }}
+	<body id="body">
+        <div id="wrap">
+			{{ render!"shared/contentHeader.html" }}
+			{{ yield }}
+			{{ render!"shared/contentFooter.html" }}
+        </div>
+    {{ render!"shared/footer.html" }}
+    </body>
+</html>
+

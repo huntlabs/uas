@@ -1,0 +1,28 @@
+<script>
+var uAppid = {{var.uAppid}};
+var uUploadToken = '{{var.uUploadToken}}';
+var uRead = '{{var.uRead}}';
+var uWrite = '{{var.uWrite}}';
+</script>
+<script src="{{var.static_url}}js/jquery.min.js"></script>
+<script src="{{var.static_url}}js/script-8.js"></script>
+<script src="{{var.static_url}}js/login.js"></script>
+<script src="{{var.static_url}}lib/uploadify/jquery.uploadify.min.js"></script>
+<script src="{{var.static_url}}js/uploadAvatar.js"></script>
+<script src="{{var.static_url}}js/remarkable.min.js"></script>
+<script src="{{var.static_url}}js/jquery.wysibb.min.js"></script>
+<script src="{{var.static_url}}js/wysibb.js"></script>
+<script>
+function replySubmit()
+{
+//	var md = new Remarkable();
+//	$("#content").attr("value",md.render($("#reply_content").val()));
+	$("#content").attr("value",$("#reply_content").htmlcode());
+	$("#reply-form").submit();
+}
+function createSubmit()
+{
+	$("#content").attr("value",$("#reply_content").htmlcode());
+	$("#topic-create-form").submit();
+}
+</script>

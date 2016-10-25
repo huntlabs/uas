@@ -1,0 +1,37 @@
+<div id="main" class="main-container container">
+	<div class="row">
+		<div class="col-md-6 col-md-offset-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">注册新用户</div>
+				<div class="panel-body">
+					<form class="simple_form " novalidate="novalidate" id="new_user" action="/register" accept-charset="UTF-8" data-remote="true" method="post"><input name="utf8" type="hidden" value="✓">
+						<div class="form-group">
+							<input class="form-control input-lg" placeholder="名字" type="text" name="username" id="user_name">
+						</div>
+						<div class="form-group">
+							<input type="email" class="form-control input-lg" placeholder="Email" name="email" id="user_email">
+						</div>
+						<div class="form-group">
+							<input class="form-control input-lg" placeholder="密码" type="password" name="password" id="user_password">
+						</div>
+						<div class="form-group">
+							<input class="form-control input-lg" placeholder="确认密码" type="password" name="repassword" id="user_password_confirmation">
+						</div>
+						<!--
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control input-lg" placeholder="验证码" name="_rucaptcha" type="text" autocorrect="off" autocapitalize="off" pattern="[0-9a-z]*" maxlength="4" autocomplete="off">
+								<span class="input-group-addon input-group-captcha checknumber"><a class="rucaptcha-image-box" href="#"><img class="rucaptcha-image" src="https://ruby-china.org/rucaptcha/" alt="Rucaptcha"></a></span>
+							</div>
+						</div>
+						-->
+						<div class="form-group">
+							<input type="submit" name="commit" value="提交注册信息" class="btn btn-lg btn-primary" data-disable-with="正在提交">
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
