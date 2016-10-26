@@ -1,0 +1,8 @@
+#test
+#
+# [GET,POST,PUT...]    path    controller.method
+#
+#{domain}
+#
+
+GET /login user.login

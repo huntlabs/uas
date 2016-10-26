@@ -22,6 +22,12 @@ class BaseController : Controller
 	{
 		return request;
 	}
+	this()
+	{
+		view.setLayout!"layouts/main.html"();
+		view.title = "index";
+		view.static_url = SERVER_STATIC;
+	}
 	void successJson(Response res,ref JSONValue data)
 	{
 		data["error_code"] = 0;

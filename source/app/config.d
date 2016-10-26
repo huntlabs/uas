@@ -68,6 +68,11 @@ Redis redis()
 
 static this()
 {
+
+	SERVER_DOMAIN = iniInstance.service.domain.value;
+	SERVER_HOST = "http://" ~ SERVER_DOMAIN;
+	SERVER_STATIC = SERVER_HOST ~ "/static/";
+
 	rport = iniInstance.redis.port.as!short;
 	rhost = iniInstance.redis.host.value;
 

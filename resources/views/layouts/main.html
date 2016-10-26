@@ -2,10 +2,8 @@
 <html>
 {{ render!"shared/header.html" }}
 	<body id="body">
-        <div id="wrap">
-			{{ render!"shared/contentHeader.html" }}
+        <div id="container">
 			{{ yield }}
-			{{ render!"shared/contentFooter.html" }}
         </div>
     {{ render!"shared/footer.html" }}
     </body>

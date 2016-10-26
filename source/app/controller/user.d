@@ -4,6 +4,7 @@ import std.math;
 import std.json;
 import std.digest.md;
 import std.net.curl;
+import std.uri;
 import std.experimental.logger;
 
 import hunt;
@@ -24,5 +25,44 @@ class UserController : BaseController
 	this()
 	{
 		//addMiddleware(new UserAuthMiddleware());
+	}
+
+	@action
+	void login()
+	{
+		auto service = req.get("service");
+		auto dservice = decodeComponent(service);
+		auto tgc = req.getCookieValue("tgc");
+		
+		if(!tgc.length)
+		{
+			view.service = service;
+			view.title = "login";
+			render!"user/login.html"();
+		}
+	}
+
+	@action
+	void postLogin()
+	{
+	
+	}
+
+	@action
+	void register()
+	{
+	
+	}
+
+	@action
+	void postRegister()
+	{
+	
+	}
+
+	@action
+	void validate()
+	{
+	
 	}
 }
