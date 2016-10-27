@@ -1,0 +1,12 @@
+<form class="form-signin" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="/register">
+	<h2>
+		Please register  
+		<a href="/login?service={{var.service}}">login</a>
+	</h2>
+	<input type="hidden" id="service" name="service" value="{{var.service}}">
+	<input type="username" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
+	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+	<input type="password" id="repassword" name="repassword" class="form-control" placeholder="RePassword" required>
+
+	<button class="btn btn-lg btn-primary btn-block" type="button" onclick="User.register()">Register</button>
+</form>

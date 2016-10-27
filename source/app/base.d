@@ -50,7 +50,23 @@ class BaseController : Controller
 		res.json(data);
 		res.done();
 	}
+	
+	void successJson(string msg)
+	{
+		JSONValue data;
+		data["error_code"] = 0;
+		data["msg"] = msg;
+		res.json(data);
+		res.done();
+	}
 
+	void successJson(string[string] info)
+	{
+		JSONValue data = JSONValue(info);
+		data["error_code"] = 0;
+		res.json(data);
+		res.done();
+	}
 	void successJson()
 	{
 		JSONValue data;
@@ -98,34 +114,14 @@ class BaseController : Controller
 			throwExceptionBuild!"PasswdNotSame"();
 	}
 
-	void setCookie(string name,string value,int expires = 604800)
+	void setCookie(string name,string value,string domain = SERVER_DOMAIN,int expires = 604800)
 	{
-		res.setCookie(name,value,expires,"/",SERVER_HOST);
+		res.setCookie(name,value,expires,"/",domain);
 	}
 
 	void redirect(string target = "/")
 	{
 		res.redirect(target);
 		res.done();
-	}
-
-	string questionLink(string questionId)
-	{
-		return SERVER_HOST~"/question/" ~ questionId;
-	}
-
-	string avatarLink(string avatar)
-	{
-		return "https://dn-phphub.qbox.me/uploads/avatars/4762_1471684361.jpg?imageView2/1/w/100/h/100";
-	}
-
-	string topicsLink(string topics)
-	{
-		return SERVER_HOST ~ "/topics/" ~topics;
-	}
-
-	string userLink(string user)
-	{
-		return SERVER_HOST ~ "/user/" ~ user;
 	}
 }

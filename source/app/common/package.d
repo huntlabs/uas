@@ -9,4 +9,6 @@ public import app.common.errorCode;
 public import app.common.shahelper;
 public import app.common.hmac;
 public import app.common.upload;
+public import app.common.urlparsing;
+public import app.common.domainparsing;
 

@@ -17,7 +17,7 @@ string SERVER_HOST;
 string SERVER_STATIC;
 string PAGELIMIT = "20";
 int PAGELIMITINT = 20;
-string SERVER_SECRET_KEY = "400427";
+string SERVER_SECRET_KEY;
 //redis
 Redis _redis;
 string rhost;
@@ -68,7 +68,7 @@ Redis redis()
 
 static this()
 {
-
+	SERVER_SECRET_KEY = iniInstance.service.secert_key.value;
 	SERVER_DOMAIN = iniInstance.service.domain.value;
 	SERVER_HOST = "http://" ~ SERVER_DOMAIN;
 	SERVER_STATIC = SERVER_HOST ~ "/static/";
