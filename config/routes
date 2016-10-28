@@ -11,3 +11,4 @@ GET /register user.register
 POST /register user.postRegister
 GET /validate user.validate
 POST /validate user.validate
+GET /logout user.logout

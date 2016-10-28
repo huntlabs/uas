@@ -107,12 +107,17 @@ class UserHelper : Helper
 		controller.setCookie("ccs",userEncry(info["id"] ~ info["username"] ~ time ~ token));
 		
 		auto uri = parseURL(decodeComponent(service));
-		return service ~ "?st=" ~userEncry(token~uri.host);
+		auto st = userEncry(token~uri.host);
+		mem.set(memPrefix ~ st,token);
+		return service ~ "?st=" ~ st;
 	}
 
-	public static JSONValue validate(string service,string tgc,string st)
+	public static JSONValue validate(string service,string st)
 	{
 		auto uri = parseURL(service);
+		auto tgc = mem.get(memPrefix ~ st);
+		if(!tgc.length)
+			throwExceptionBuild!"PasswdError"();
 		if(st != userEncry(tgc ~ uri.host))
 			throwExceptionBuild!"PasswdError"();
 		auto info = mem.get(memPrefix ~ tgc);

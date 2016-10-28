@@ -119,6 +119,11 @@ class BaseController : Controller
 		res.setCookie(name,value,expires,"/",domain);
 	}
 
+	void delCookie(string name)
+	{
+		setCookie(name,"0",SERVER_DOMAIN,1);
+	}
+
 	void redirect(string target = "/")
 	{
 		res.redirect(target);

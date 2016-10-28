@@ -108,11 +108,26 @@ class UserController : BaseController
 	void doValidate()
 	{
 		auto service = req.post("service");
-		auto tgc = req.post("tgc");
 		auto st = req.post("st");
 
-		checkParamsLength(service,tgc,st);
-		auto result = UserHelper.validate(decodeComponent(service),tgc,st);
+		checkParamsLength(service,st);
+		auto result = UserHelper.validate(decodeComponent(service),st);
 		successJson(result);
+	}
+
+	@action
+	void logout()
+	{
+		delCookie("tgc");
+		delCookie("uid");
+		delCookie("time");
+		delCookie("username");
+		delCookie("ccs");
+
+		auto callback = req.get("callback");
+		log(callback);
+		callback = decodeComponent(callback);
+		log(callback);
+		redirect(callback);
 	}
 }
