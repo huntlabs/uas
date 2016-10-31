@@ -1,2 +1,2 @@
-# cas
-Central Authentication Service
+# uas
+User Authentication Service
