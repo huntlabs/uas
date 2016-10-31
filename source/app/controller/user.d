@@ -43,9 +43,16 @@ class UserController : BaseController
 		}
 		else
 		{
-			auto uri = parseURL(dservice);
-			auto st = UserHelper.userEncry(tgc ~ uri.host);
-			redirect(dservice~"?st="~st);	
+			if(dservice.length)
+			{
+				auto uri = parseURL(dservice);
+				auto st = UserHelper.userEncry(tgc ~ uri.host);
+				redirect(dservice~"?st="~st);	
+			}
+			else
+			{
+				errorJson();
+			}
 		}
 	}
 
