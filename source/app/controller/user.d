@@ -31,13 +31,15 @@ class UserController : BaseController
 	void login()
 	{
 		auto service = req.get("service");
+		auto callback = req.get("callback");
 		checkParamsLength(service);
 		auto dservice = decodeComponent(service);
 		auto tgc = req.getCookieValue("tgc");
 
 		if(!tgc.length)
 		{
-			view.service = service;
+			view.service = encodeComponent(service);
+			view.callback = encodeComponent(callback);
 			view.title = "login";
 			render!"user/login.html"();
 		}
@@ -47,7 +49,7 @@ class UserController : BaseController
 			{
 				auto uri = parseURL(dservice);
 				auto st = UserHelper.userEncry(tgc ~ uri.host);
-				redirect(dservice~"?st="~st);	
+				redirect(dservice~"?st="~st~"&callback="~callback);	
 			}
 			else
 			{
@@ -64,22 +66,25 @@ class UserController : BaseController
 	void doPostLogin()
 	{
 		auto service = req.post("service");
+		auto callback = req.post("callback");
 		auto username = req.post("username");
 		auto password = req.post("password");
 		checkParamsLength(service,username,password);
 
 		auto result = UserHelper.userCheck(username,password);
 
-		auto r = UserHelper.setLogin(this,result,service);
-
-		successJson(r);
+		auto r = UserHelper.setLogin(this,result,decodeComponent(service));
+		log(r);
+		successJson(r ~ "&callback=" ~ encodeComponent(callback));
 	}
 
 	@action
 	void register()
 	{
 		auto service = req.get("service");
-		view.service = service;
+		auto callback = req.get("callback");
+		view.service = encodeComponent(service);
+		view.callback = encodeComponent(callback);
 		view.title = "register";
 		render!"user/register.html"();
 	}
@@ -92,6 +97,7 @@ class UserController : BaseController
 	void doPostRegister()
 	{
 		auto service = req.post("service");
+		auto callback = req.post("callback");
 		auto username = req.post("username");
 		auto password = req.post("password");
 		auto repassword = req.post("repassword");
@@ -102,9 +108,9 @@ class UserController : BaseController
 
 		auto info = UserHelper.getData(to!string(result));
 		
-		auto r = UserHelper.setLogin(this,info,service);
+		auto r = UserHelper.setLogin(this,info,decodeComponent(service));
 
-		successJson(r);
+		successJson(r ~ "&callback=" ~ encodeComponent(callback));
 	}
 
 	@action

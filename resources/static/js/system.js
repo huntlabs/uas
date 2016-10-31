@@ -5,6 +5,7 @@ var User = {
 			'password': $('#password').val(),
 			'repassword': $('#repassword').val(),
 			'service': $('#service').val(),
+			'callback': $('#callback').val(),
 		};
 		if (!arr.username.length) {
 			swal("wrong!", '用户名不能为空!', "error");
@@ -21,6 +22,7 @@ var User = {
 		$.post('/register', arr, function (result) {
 			if (result.error_code == 0) {
 				//swal("updated!", "注册完成!", "success");
+				//alert(result.msg);
 				location.href = result.msg;
 			} else {
 				swal("wrong!", result.msg, "error");
@@ -32,6 +34,7 @@ var User = {
 			'username': $('#username').val(),
 			'password': $('#password').val(),
 			'service': $('#service').val(),
+			'callback': $('#callback').val(),
 		};
 		console.log(arr);
 		if (!arr.username.length) {
@@ -44,6 +47,7 @@ var User = {
 		}
 		$.post('/login', arr, function (result) {
 			if (result.error_code == 0) {
+				//alert(result.msg);
 				location.href = result.msg;
 			} else {
 				swal("wrong!", result.msg, "error");

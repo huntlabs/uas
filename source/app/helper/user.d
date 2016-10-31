@@ -89,6 +89,7 @@ class UserHelper : Helper
 
 	public static string setLogin(BaseController controller,string[string] info,string service)
 	{
+		log(info,service);
 		auto time = TimeHelper.getCurrUnixStramp();
 		string token = userEncry(info["id"] ~ info["username"] ~ time);
 		string[string] cache = [
@@ -106,7 +107,7 @@ class UserHelper : Helper
 		controller.setCookie("username",info["username"]);
 		controller.setCookie("ccs",userEncry(info["id"] ~ info["username"] ~ time ~ token));
 		
-		auto uri = parseURL(decodeComponent(service));
+		auto uri = parseURL(service);
 		auto st = userEncry(token~uri.host);
 		mem.set(memPrefix ~ st,token);
 		return service ~ "?st=" ~ st;
@@ -114,8 +115,10 @@ class UserHelper : Helper
 
 	public static JSONValue validate(string service,string st)
 	{
+		log(service,st);
 		auto uri = parseURL(service);
 		auto tgc = mem.get(memPrefix ~ st);
+		log(memPrefix,tgc);
 		if(!tgc.length)
 			throwExceptionBuild!"PasswdError"();
 		if(st != userEncry(tgc ~ uri.host))
