@@ -14,7 +14,7 @@ import kerisy.db.sql.factory;
 class UserModel : BasicModel 
 {
 	public{
-		string tableName = "cas_user";
+		string tableName = "uas_user";
 		static BasicModel _model;
 		struct UserInfo {
 			string id;
