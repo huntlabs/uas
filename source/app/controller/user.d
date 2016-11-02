@@ -5,6 +5,7 @@ import std.json;
 import std.digest.md;
 import std.net.curl;
 import std.uri;
+import std.string;
 import std.experimental.logger;
 
 import hunt;
@@ -67,7 +68,7 @@ class UserController : BaseController
 	{
 		auto service = req.post("service");
 		auto callback = req.post("callback");
-		auto username = req.post("username");
+		auto username = req.post("username").toLower;
 		auto password = req.post("password");
 		checkParamsLength(service,username,password);
 
@@ -98,8 +99,8 @@ class UserController : BaseController
 	{
 		auto service = req.post("service");
 		auto callback = req.post("callback");
-		auto username = req.post("username");
-		auto email = req.post("email");
+		auto username = req.post("username").toLower;
+		auto email = req.post("email").toLower;
 		auto password = req.post("password");
 		auto repassword = req.post("repassword");
 		checkParamsLength(username,email,password,repassword);
