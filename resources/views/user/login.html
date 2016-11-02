@@ -1,16 +1,16 @@
 <form class="form-signin" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="/login">
 	<h2>
-		Please sign in  
-		<a href="/register?service={{var.service}}&callback={{var.callback}}">register</a>
+		请登录 
+		<a href="/register?service={{var.service}}&callback={{var.callback}}">注册</a>
 	</h2>
 	<input type="hidden" id="service" name="service" value="{{var.service}}">
 	<input type="hidden" id="callback" name="callback" value="{{var.callback}}">
-	<input type="username" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
+	<input type="username" id="username" name="username" class="form-control" placeholder="用户名或者邮箱" required autofocus>
+	<input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
 	<div class="checkbox">
 		<label>
-			<input type="checkbox" value="remember-me"> Remember me
+			<input type="checkbox" value="remember-me">记住我
 		</label>
 	</div>
-	<button class="btn btn-lg btn-primary btn-block" type="button" onclick="User.login()">Sign in</button>
+	<button class="btn btn-lg btn-primary btn-block" type="button" onclick="User.login()">登录</button>
 </form>

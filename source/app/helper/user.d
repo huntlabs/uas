@@ -46,28 +46,31 @@ class UserHelper : Helper
 	public static string[string] userCheck(string username,string password)
 	{
 		auto info = model.where("username","=",username).get();
+		info = info.length ? info : model.where("email","=",username).get();
 		if(info.length && info["salt"].length && info["password"] == userEncry(password ~ info["salt"]))
 		{
 			model.where("username","=",username).update(["updated_at":TimeHelper.getCurrUnixStramp]);
 			return info;
 		}
-		else
-		{
-			throwExceptionBuild!"PasswdError"();
-			return null;
-		}
+		
+		throwExceptionBuild!"PasswdError"();
+		return null;
 	}
 
-	public static int add(string username,string password)
+	public static int add(string username,string email,string password)
 	{
 		auto check = model.where("username","=",username).get();
 		if(check)
 			throwExceptionBuild!"ExistUser"();
+		auto check1 = model.where("email","=",email).get();
+		if(check1)
+			throwExceptionBuild!"ExistEmail"();
 
 		string salt = getSalt();
 		string sPassword = userEncry(password ~ salt);
 
 		string[string] user = [
+			"email" : email,
 			"username" : username,
 			"password" : sPassword,
 			"salt" : salt
@@ -94,6 +97,7 @@ class UserHelper : Helper
 		string token = userEncry(info["id"] ~ info["username"] ~ time);
 		string[string] cache = [
 			"username" : info["username"],
+			"email" : info["email"],
 			"uid" : info["id"],
 			"id" : info["id"],
 			"time" : time,

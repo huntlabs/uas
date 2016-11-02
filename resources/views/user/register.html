@@ -1,13 +1,14 @@
 <form class="form-signin" role="form" method="POST" enctype="application/x-www-form-urlencoded" action="/register">
 	<h2>
-		Please register  
-		<a href="/login?service={{var.service}}&callback={{var.callback}}">login</a>
+		请注册  
+		<a href="/login?service={{var.service}}&callback={{var.callback}}">登录</a>
 	</h2>
 	<input type="hidden" id="service" name="service" value="{{var.service}}">
 	<input type="hidden" id="callback" name="callback" value="{{var.callback}}">
-	<input type="username" id="username" name="username" class="form-control" placeholder="Username" required autofocus>
-	<input type="password" id="password" name="password" class="form-control" placeholder="Password" required>
-	<input type="password" id="repassword" name="repassword" class="form-control" placeholder="RePassword" required>
+	<input type="username" id="username" name="username" class="form-control" placeholder="用户名" required autofocus>
+	<input type="username" id="email" name="email" class="form-control" placeholder="邮箱" required autofocus>
+	<input type="password" id="password" name="password" class="form-control" placeholder="密码" required>
+	<input type="password" id="repassword" name="repassword" class="form-control" placeholder="再输入一次密码" required>
 
-	<button class="btn btn-lg btn-primary btn-block" type="button" onclick="User.register()">Register</button>
+	<button class="btn btn-lg btn-primary btn-block" type="button" onclick="User.register()">注册</button>
 </form>

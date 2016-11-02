@@ -99,12 +99,13 @@ class UserController : BaseController
 		auto service = req.post("service");
 		auto callback = req.post("callback");
 		auto username = req.post("username");
+		auto email = req.post("email");
 		auto password = req.post("password");
 		auto repassword = req.post("repassword");
-		checkParamsLength(username,password,repassword);
+		checkParamsLength(username,email,password,repassword);
 		checkPasswordSame(password,repassword);
 
-		auto result = UserHelper.add(username,password);
+		auto result = UserHelper.add(username,email,password);
 
 		auto info = UserHelper.getData(to!string(result));
 		

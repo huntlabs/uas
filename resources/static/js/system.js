@@ -2,6 +2,7 @@ var User = {
 	register: function () {
 		var arr = {
 			'username': $('#username').val(),
+			'email': $('#email').val(),
 			'password': $('#password').val(),
 			'repassword': $('#repassword').val(),
 			'service': $('#service').val(),
@@ -9,6 +10,10 @@ var User = {
 		};
 		if (!arr.username.length) {
 			swal("wrong!", '用户名不能为空!', "error");
+			return false;
+		}
+		if (!arr.email.length) {
+			swal("wrong!", '邮箱不能为空!', "error");
 			return false;
 		}
 		if (!arr.password.length || !arr.repassword.length) {
