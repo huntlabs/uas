@@ -46,7 +46,6 @@ class UserController : Controller
 
             auto repository = new UserRepository;
             auto find = repository.findByEmail(email)?repository.findByEmail(email):null;
-            logInfo(name);
             if(find)
             { 
                 logInfo(generateUserPassword(password, find.salt));
