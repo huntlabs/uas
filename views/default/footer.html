@@ -1,0 +1,63 @@
+<footer class="footer">
+    <div class="container">
+        <div class="panel panel-default">
+            <div class="panel-body"></div>
+                <div class="panel-footer clearfix">
+                <ul class="targets list-inline list-unstyled" style="">
+                    <li>2017 &copy;  All Rights Reserved.</li>
+                    <li><a href="http://www.miitbeian.gov.cn/" target="_blank"></a></li>
+              
+                    <li>页面执行时间：{{0}}ms</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+{% if length(success_messages) > 0 %}
+<div class="col-md-6" style="position: fixed;right: 0;top: 0;z-index: 9999;">
+    {% for message in success_messages %}
+        <div class="alert alert-success alert-dismissable" style="margin-bottom: 1px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            {{ message }}
+        </div>
+    {% endfor %}
+    <script>
+        $(function () {
+            var successMs = 2000;
+            $(".alert-success").each(function (i) {
+                var thiss = this;
+                var ms = successMs + (i * 800);
+                setTimeout(function(){
+                    $(thiss).fadeOut();
+                },ms);
+            });
+        })
+    </script>
+</div>
+{% endif %}
+{% if length(error_messages) > 0 %}
+<div class="col-md-6" style="position: fixed;right: 0;top: 0;z-index: 9999;">
+    {% for message in error_messages %}
+    <div class="alert alert-danger alert-dismissable" style="margin-bottom: 1px;">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        {{ message }}
+        </div>
+        {% endfor %}
+        <script>
+        $(function () {
+            var errorMs = 4000;
+            $(".alert-danger").each(function (i) {
+                var thiss = this;
+                var ms = errorMs + (i * 800);
+                setTimeout(function(){
+                    $(thiss).fadeOut();
+                },ms);
+            });
+        })
+    </script>
+</div>
+
+{% endif %}
+</body>
+</html>            

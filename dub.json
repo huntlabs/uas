@@ -1,19 +1,21 @@
 {
-	"name": "uas",
-	"authors": [
-		"putao.com dlang team."
-	],
-	"description": "User Authentication Service",
-	"copyright": "Copyright (C) 2015-2016 Shanghai Putao Technology Co., Ltd",
-	"license": "BSD",
-	"mainSourceFile": "source/bootstrap.d",
-	"stringImportPaths": [ "./resources/views" ],
-	"targetType":"executable",
-	"dependencies": {
-		"hunt": "~>0.4.1",
-		"libmemcached": "~>1.0.1",
-		"tinyredis": "~>2.0.6"
-	},
-	"versions":["USE_MYSQL","MySQL_51"],                                                                                 
-	"libs":["mysqlclient"]
+    "name": "ca",
+    "description": "CAS",
+    "copyright": "Copyright © 2017-2018, huntframework.com",
+    "homepage": "http://www.huntframework.com/",
+    "license": "Apache-2.0",
+    "targetType": "executable",
+    "dependencies": {
+        "hunt-framework": {"path":"../github/hunt-framework"},
+        "openssl":{ "version" :"~>1.1.6+1.0.1g" },
+        "tinyredis": "~>2.0.6"
+    },
+    "libs":["ssl"],
+
+    "configurations": [{
+        "name": "default",
+        "subConfigurations": {
+            "hunt":"mysql"
+        }
+    }]
 }

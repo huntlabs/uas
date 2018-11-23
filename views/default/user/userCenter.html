@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Meta Information -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UAS</title>
+    <link href="./css/sweetalert.css" rel="stylesheet">
+    <link href="./css/userCenter.css" rel="stylesheet">
+</head>
+<body class="with-navbar">
+<div id="spark-app">
+    <!-- Navigation -->
+    <!-- NavBar For Authenticated Users -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <!-- Collapsed Hamburger -->
+                <!--M站点击展开隐藏-->
+                <div class="hamburger">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                            data-target="#spark-navbar-collapse">
+                        <span class="sr-only">Toggle Navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <!-- Branding Image -->
+                <a class="navbar-brand" href="./login.html">UAS</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="spark-navbar-collapse">
+                <!-- Left Side Of Navbar -->
+                <ul class="nav navbar-nav">
+                    <!-- Left Side Of Navbar -->
+                    <!--<li><a href="/releases">Releases</a></li>-->
+                    <!--<li><a href="/licenses">Licenses</a></li>-->
+                    <!--<li><a href="/docs">Documentation</a></li>-->
+                </ul>
+                <!-- Right Side Of Navbar -->
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <!-- User Photo / Name -->
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <!--用户头像-->
+                            <img src="https://www.gravatar.com/avatar/f76fb3679b339cb7cec404027be0d82b.jpg?s=200&d=mm"
+                                 class="spark-nav-profile-photo m-r-xs">
+                            <span class="caret"> </span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <!-- Settings -->
+                            <li class="dropdown-header">Settings</li>
+                            <li>
+                                <a href="./userCenter.html">
+                                    <i class="fa fa-fw fa-btn fa-cog"></i>Your Settings
+                                </a>
+                            </li>
+                            <li>
+                                <a href="">
+                                    <i class="fa fa-fw fa-btn fa-sign-out"></i>Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div>
+        <div class="spark-screen container">
+            <div class="row">
+                <!-- Tabs -->
+                <div class="col-md-4">
+                    <div class="panel panel-default panel-flush">
+                        <div class="panel-heading">
+                            Settings
+                        </div>
+                        <div class="panel-body">
+                            <div class="spark-settings-tabs">
+                                <ul class="nav spark-settings-stacked-tabs" role="tablist">
+                                    <!--用户主要信息-->
+                                    <li role="presentation" class="active">
+                                        <a href="#userMsg" aria-controls="userMsg" role="tab" data-toggle="tab">
+                                            <i class="fa fa-fw fa-btn fa-credit-card"></i>user Information
+                                        </a>
+                                    </li>
+                                    <!-- Profile Link -->
+                                    <li role="presentation">
+                                        <a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">
+                                            <i class="fa fa-fw fa-btn fa-edit"></i>Profile
+                                        </a>
+                                    </li>
+                                    <!-- Security Link -->
+                                    <li role="presentation">
+                                        <a href="#security" aria-controls="security" role="tab" data-toggle="tab">
+                                            <i class="fa fa-fw fa-btn fa-lock"></i>Security
+                                        </a>
+                                    </li>
+                                    <li role="presentation">
+                                        <a href="#updateImg" aria-controls="updateImg" role="tab" data-toggle="tab">
+                                            <i class="fa fa-fw fa-btn fa-edit"></i>updateImg
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab Panels -->
+                <div class="col-md-8">
+                    <div class="tab-content">
+                        <!-- Profile -->
+                        <div role="tabpanel" class="tab-pane active" id="userMsg">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Profile Photo</div>
+                                <div class="panel-body">
+                                    <div class="form-horizontal">
+                                        <!-- Photo Preview-->
+                                        <div class="form-group">
+                                            <label class="col-sm-4 control-label">&nbsp;</label>
+                                            <div class="col-sm-8">
+                                                <img class="profile-photo-preview"
+                                                     src="https://www.gravatar.com/avatar/f76fb3679b339cb7cec404027be0d82b.jpg?s=200&d=mm"/>
+                                            </div>
+                                            <!--单纯的隔断-->
+                                            <div class="form-group">
+                                                <label class="col-md-4 control-label">&nbsp;</label>
+                                                <div class="col-md-6"></div>
+                                            </div>
+                                            <label class="col-md-2 control-label">&nbsp;</label>
+                                            <div class="col-md-8">
+                                                <table class="table table-striped">
+                                                    <tr class="success">
+                                                        <td class="active text-center">昵称</td>
+                                                        <td class="success">你看着写吧</td>
+                                                    </tr>
+                                                    <tr class="success">
+                                                        <td class="active text-center">生日</td>
+                                                        <td class="success">不知道</td>
+                                                    </tr>
+                                                    <tr class="success">
+                                                        <td class="active text-center">性别</td>
+                                                        <td class="success">人妖</td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="profile">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Contact Information</div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" role="form" method="POST" action="">
+                                        <!-- Name -->
+                                        <!--<div class="form-group">-->
+                                        <div class="form-group has-error">
+                                            <label class="col-md-4 control-label">Name</label>
+                                            <div class="col-md-6">
+                                                <input type="text" class="form-control" name="name">
+                                                <span class="help-block">用户名未选择</span>
+                                            </div>
+                                        </div>
+                                        <!-- Birthday -->
+                                        <div class="form-group has-error">
+                                            <label class="col-md-4 control-label">Birthday</label>
+                                            <div class="col-md-6">
+                                                <input id="birthdayData" type="data" class="form-control"
+                                                       name="birthday" placeholder="year-mouth-day" maxlength="10">
+                                                <span class="help-block">生日格式不对</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">E-Mail Address</label>
+                                            <div class="col-md-4">
+                                                <input type="email" class="form-control" name="email">
+                                                <span class="help-block">邮箱错误</span>
+                                            </div>
+                                            <label class="col-md-4">
+                                                <div class="btn btn-primary">send Email</div>
+                                            </label>
+                                        </div>
+                                        <!-- Update Button -->
+                                        <div class="form-group">
+                                            <div class="col-md-offset-4 col-md-6">
+                                                <button type="submit" class="btn btn-primary">
+                                                    Update
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="security">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Update Password</div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" role="form" method="POST" action="">
+                                        <!-- Current Password -->
+                                        <div class="form-group has-error">
+                                            <label class="col-md-4 control-label">Current Password</label>
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control"
+                                                       name="current_password">
+                                                <span class="help-block">用户名格式错误</span>
+                                            </div>
+                                        </div>
+                                        <!-- New Password -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Password</label>
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control" name="password">
+                                                <span class="help-block">新密码格式错误</span>
+                                            </div>
+                                        </div>
+                                        <!-- New Password Confirmation -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">Confirm Password</label>
+                                            <div class="col-md-6">
+                                                <input type="password" class="form-control"
+                                                       name="password_confirmation">
+                                                <span class="help-block">两次密码不一致</span>
+                                            </div>
+                                        </div>
+                                        <!-- Update Button -->
+                                        <div class="form-group">
+                                            <div class="col-md-offset-4 col-md-6">
+                                                <button type="submit" class="btn btn-primary">Update
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="updateImg">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">Profile Photo</div>
+                                <div class="panel-body">
+                                    <!--<div class="alert alert-danger" v-if="form.errors.has('photo')">-->
+                                    <!--{{ form.errors.get('photo') }}-->
+                                    <!--</div>-->
+                                    <div class="alert alert-danger">
+                                        图片不正确
+                                    </div>
+
+                                    <form class="form-horizontal" role="form" method="POST"
+                                          action="">
+                                        <!-- Photo Preview-->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">&nbsp;</label>
+                                            <div class="col-md-6">
+                                                <img class="profile-photo-preview"
+                                                     src="https://www.gravatar.com/avatar/f76fb3679b339cb7cec404027be0d82b.jpg?s=200&d=mm"/>
+                                            </div>
+                                        </div>
+                                        <!-- Update Button -->
+                                        <div class="form-group">
+                                            <label class="col-md-4 control-label">&nbsp;</label>
+
+                                            <div class="col-md-6">
+                                                <!--<label type="button" class="btn btn-primary btn-upload"-->
+                                                <!--:disabled="form.busy">-->
+                                                <!--<span>Select New Photo</span>-->
+
+                                                <!--&lt;!&ndash;<input ref="photo" type="file" class="form-control"&ndash;&gt;-->
+                                                <!--&lt;!&ndash;name="photo" @change="update">&ndash;&gt;-->
+                                                <!--</label>-->
+                                                <label type="button" class="btn btn-primary btn-upload">
+                                                    <span>Select New Photo</span>
+
+                                                    <input type="file" class="form-control"
+                                                           name="photo">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="./js/jquery-3.3.1.js"></script>
+<script src="./js/bootstrap.js"></script>
+<script>
+  var oldLength = '0'
+  $('#birthdayData').on('input propertychange', function () {
+    var dateStr = $(this).val();//获取输入框的值
+    var dateStrLength = $(this).val().length; //获取值的长度
+    var asd = '1492444800000'
+
+    if (dateStrLength > oldLength) {
+      formatDate(dateStr)
+      oldLength = dateStrLength - 1
+      console.log(oldLength)
+    } else {
+      oldLength = dateStrLength - 1
+      console.log(oldLength)
+    }
+
+  });
+
+  function formatDate(dateStr) {
+    var dateStrLength = dateStr.length;
+    if (dateStrLength === 4) {
+      var newDateStr = insertStr(dateStr, 4, "-")
+      console.log(newDateStr)
+      $('#birthdayData').val(newDateStr)
+    } else if (dateStrLength === 7) {
+      var newDateStrs = insertStr(dateStr, 7, "-")
+      console.log(newDateStrs)
+      $('#birthdayData').val(newDateStrs)
+    }
+    console.log(dateStrLength)
+  }
+
+  var insertStr = (soure, start, newStr) => {
+    return soure.slice(0, start) + newStr + soure.slice(start)
+  }
+</script>
+
+
+</body>
+</html>
