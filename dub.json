@@ -6,7 +6,7 @@
     "license": "Apache-2.0",
     "targetType": "executable",
     "dependencies": {
-        "hunt-framework": {"path":"../github/hunt-framework"},
+        "hunt-framework": "~master",
         "openssl":{ "version" :"~>1.1.6+1.0.1g" },
         "tinyredis": "~>2.0.6"
     },
