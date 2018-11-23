@@ -64,7 +64,7 @@ class UserController : Controller
                     return new RedirectResponse(this.request,"/login");
                 }
             }else{
-                view.assign("servie", service);
+                view.assign("service", service);
                 view.assign("callback", callback);
                 return response.setContent(view.render("user/register"));
             }
@@ -77,7 +77,7 @@ class UserController : Controller
         // view.assign("elapsed", request.elapsed);
         string service = request.get("service","");
         string callback = request.get("callback","");
-        view.assign("servie", service);
+        view.assign("service", service);
         view.assign("callback", callback);
         return response.setContent(view.render("user/login"));
 	}
@@ -100,7 +100,9 @@ class UserController : Controller
                 view.assign("title","加入 - 我们");
                 // view.assign("elapsed", request.elapsed);
                 view.assign("error_messages", ["两次输入密码不一致"]);
-                return response.setContent(view.render("user/login"));
+                view.assign("service", service);
+                view.assign("callback", callback);
+                return response.setContent(view.render("user/register"));
             }
             auto repository = new UserRepository;
 
@@ -111,7 +113,9 @@ class UserController : Controller
                 view.assign("title","加入 - 我们");
                 // view.assign("elapsed", request.elapsed);
                 view.assign("error_messages", ["用户名或邮箱已注册"]);
-                return response.setContent(view.render("user/login"));
+                view.assign("service", service);
+                view.assign("callback", callback);
+                return response.setContent(view.render("user/register"));
             }else
             {
                 user = new User();
@@ -199,7 +203,7 @@ class UserController : Controller
             return new RedirectResponse(this.request, callback~"?st="~st);
         }else{
             response.setHeader("content-type","text/html;charset=utf-8");
-            view.assign("servie", service);
+            view.assign("service", service);
             view.assign("callback", callback);
             return response.setContent(view.render("user/login"));
         }

@@ -56,6 +56,7 @@ class TestController : Controller
     {
         response.setHeader("content-type","text/html;charset=utf-8");
         string st = request.get("st");
+        logInfo(st);
         if(st){
             JSONValue ret = get("http://passport.dlangchina.com/servicevalidate?st="~st).parseJSON;
             logInfo(ret);
