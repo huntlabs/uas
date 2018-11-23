@@ -61,7 +61,10 @@ class UserController : Controller
                     request.flush();
                     return new RedirectResponse(this.request,callback~"?st="~st).withCookie(cookie);
                 }else{
-                    return new RedirectResponse(this.request,"/login");
+                    view.assign("error_messages", ["两次输入密码不一致"]);
+                    view.assign("service", service);
+                    view.assign("callback", callback);
+                    return response.setContent(view.render("user/login"));
                 }
             }else{
                 view.assign("service", service);
