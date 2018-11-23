@@ -39,13 +39,13 @@ class UserController : Controller
 
         if(toUpper(request.method()) == HttpMethod.POST.asString())
         {
-            string name = request.post("username","");
+            string email = request.post("email","");
             string password = request.post("password","");
             string service = request.post("service","");
             string callback = request.post("callback","");
 
             auto repository = new UserRepository;
-            auto find = repository.findByName(name)?repository.findByName(name):repository.findByEmail(name);
+            auto find = repository.findByEmail(email)?repository.findByEmail(email):null;
             logInfo(name);
             if(find)
             { 
