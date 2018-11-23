@@ -35,8 +35,8 @@ class TestController : Controller
         logInfo(res["message"]);
                 // logInfo(typeof(res["message"]));
 
-        if(res["message"].to!string == "success"){
-            return res["data"]["token"].to!string;
+        if(res["message"].str == "success"){
+            return res["data"]["token"].str;
         }else{
             return "获取token失败";
         }
@@ -45,10 +45,10 @@ class TestController : Controller
     @Action
     Response validate()
     {
-        // string token = 
+        string token = get_token();
         string service = "test";
         string callback = "192.168.32.129/postvalidate";
-        return new RedirectResponse(this.request, "http://passport.dlangchina.com/validate?service="~service~"&callback="~callback);
+        return new RedirectResponse(this.request, "http://passport.dlangchina.com/validate?appid=1000&service="~service~"&token="~token~"&callback="~callback);
     }
 
     @Action
@@ -64,6 +64,7 @@ class TestController : Controller
                 auto userinfo = ret["data"];
                 HttpSession session = request.session();
                 session.set("test", userinfo);
+                view.assign("valid", true);
                 auto cookie = new Cookie("test", "testvalidate",0 ,"/" ,"192.168.32.129",false ,false);
                 return new RedirectResponse(this.request, "/test").withCookie(cookie);
             }else{

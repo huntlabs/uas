@@ -198,6 +198,7 @@ class UserController : Controller
             request.flush();
             return new RedirectResponse(this.request, callback~"?st="~st);
         }else{
+            response.setHeader("content-type","text/html;charset=utf-8");
             view.assign("servie", service);
             view.assign("callback", callback);
             return response.setContent(view.render("user/login"));
