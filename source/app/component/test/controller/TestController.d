@@ -20,7 +20,8 @@ class TestController : Controller
         view.assign("valid", false);
         return view.render("test/index");
     }
-
+    
+    @Action
     string get_token()
     {
         string request_time = time().to!string;
@@ -31,6 +32,9 @@ class TestController : Controller
         string sign = toHexString!(LetterCase.lower)(hashKey);
         JSONValue res = get("http://passport.dlangchina.com/get_token?appid=1000&secret=abccefdasdf&request_time="~request_time~"&sign="~sign).parseJSON;
         logInfo(res);
+        logInfo(res["message"]);
+                // logInfo(typeof(res["message"]));
+
         if(res["message"].to!string == "success"){
             return res["data"]["token"].to!string;
         }else{

@@ -15,6 +15,7 @@ GET /logout user.user.logout
 GET /test   test.test.index
 GET /test/validate   test.test.validate
 GET /test/postvalidate   test.test.postValidate
+GET /test/get_token   test.test.get_token
 
 GET /get_token account.account.get_token
 GET /refresh_token account.account.refresh_token

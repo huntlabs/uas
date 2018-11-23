@@ -33,19 +33,39 @@ class AccountController : Controller
             auto md5 = new MD5Digest();
             ubyte[] hashKey = md5.digest(appid.to!string~md5.digest(request_time~secret).toHexString);
             if(sign == toHexString!(LetterCase.lower)(hashKey)){
-                auto token = new AppToken;
-                token.appid = appid;
-                token.created = time();
-                token.expires = token.created+7200;
-                token.token = md5.digest(appid.to!string~secret~token.created.to!string).toHexString!(LetterCase.lower);
-                token.refresh_token = md5.digest("refresh_token"~appid.to!string~secret~token.created.to!string).toHexString!(LetterCase.lower);
-                appTokenRepository.save(token);
+                auto existToken = appTokenRepository.findByAppId(appid);
+                if(existToken&&existToken.expires>time().to!int){                   
+                    ret["message"] = "success";
+                    data["token"] = existToken.token;
+                    data["refresh_token"] = existToken.refresh_token;
+                    data["expires"] = existToken.expires;
+                    ret["data"] = data;
+                }else if(existToken&&existToken.expires<=time().to!int){
+                    existToken.updated = time();
+                    existToken.token = md5.digest(appid.to!string~secret~existToken.updated.to!string).toHexString!(LetterCase.lower);
+                    existToken.refresh_token = md5.digest("refresh_token"~appid.to!string~secret~existToken.updated.to!string).toHexString!(LetterCase.lower);
+                    appTokenRepository.save(existToken);
+                    ret["message"] = "success";
+                    data["token"] = existToken.token;
+                    data["refresh_token"] = existToken.refresh_token;
+                    data["expires"] = existToken.expires;
+                    ret["data"] = data;
+                }else{
+                    auto token = new AppToken;
+                    token.appid = appid;
+                    token.created = time();
+                    token.expires = token.created+7200;
+                    token.token = md5.digest(appid.to!string~secret~token.created.to!string).toHexString!(LetterCase.lower);
+                    token.refresh_token = md5.digest("refresh_token"~appid.to!string~secret~token.created.to!string).toHexString!(LetterCase.lower);
+                    appTokenRepository.save(token);
 
-                ret["message"] = "success";
-                data["token"] = token.token;
-                data["refresh_token"] = token.refresh_token;
-                data["expires"] = token.expires;
-                ret["data"] = data;
+                    ret["message"] = "success";
+                    data["token"] = token.token;
+                    data["refresh_token"] = token.refresh_token;
+                    data["expires"] = token.expires;
+                    ret["data"] = data;
+                }
+
             }else{
                 ret["message"] = "认证失败!";
             }
