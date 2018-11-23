@@ -16,4 +16,7 @@ GET /test   test.test.index
 GET /test/validate   test.test.validate
 GET /test/postvalidate   test.test.postValidate
 
+GET /get_token account.account.get_token
+GET /refresh_token account.account.refresh_token
+
 GET		    /wwwroot					 staticDir:wwwroot

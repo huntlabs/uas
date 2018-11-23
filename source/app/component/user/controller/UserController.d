@@ -3,6 +3,9 @@ import hunt.framework;
 import app.component.user.repository.UserRepository;
 import app.component.user.model.User;
 import app.component.user.helper.Password;
+import app.component.account.middleware.AccountMiddleware;
+import hunt.framework.http.Request;
+import hunt.framework.http.Response;
 import hunt.logging;
 import hunt.http.codec.http.model.HttpMethod;
 import hunt.http.codec.http.model.Cookie;
@@ -13,7 +16,7 @@ class UserController : Controller
 	mixin MakeController;
 	this()
 	{
-		//addMiddleware(new UserAuthMiddleware());
+		addMiddleware(new AccountMiddleware(["user.user.validate", "user.user.serviceValidate"]));
 	}
 
     @Action
@@ -32,6 +35,7 @@ class UserController : Controller
 	Response login()
 	{
         // MonoTime before = MonoTime.currTime;
+        response.setHeader("content-type","text/html;charset=utf-8");
 
         if(toUpper(request.method()) == HttpMethod.POST.asString())
         {
@@ -81,6 +85,7 @@ class UserController : Controller
     @Action 
     Response register()
     {
+        response.setHeader("content-type","text/html;charset=utf-8");
         if(toUpper(request.method()) == HttpMethod.POST.asString())
         {
             User user;

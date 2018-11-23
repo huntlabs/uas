@@ -1,8 +1,8 @@
 module app.component.test.controller.TestController;
 import std.json;
 import std.net.curl;
-import hunt.http.codec.http.model.Cookie;
 import hunt.framework;
+import hunt.http.codec.http.model.Cookie;
 import hunt.logging;
 
 class TestController : Controller
