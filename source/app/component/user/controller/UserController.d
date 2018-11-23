@@ -50,6 +50,7 @@ class UserController : Controller
             { 
                 logInfo(generateUserPassword(password, find.salt));
                 if(find.password == generateUserPassword(password, find.salt)){
+                    logInfo("login");
                     auto md5 = new MD5Digest();
                     ubyte[] hashKey = md5.digest(cast(string) serialize!User(find));
                     auto cookie = new Cookie("DFTGC", toHexString(hashKey),0 ,"/" ,"192.168.32.129",false ,false);

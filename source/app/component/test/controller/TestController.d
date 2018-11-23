@@ -47,7 +47,7 @@ class TestController : Controller
     {
         string token = get_token();
         string service = "test";
-        string callback = "192.168.32.129/postvalidate";
+        string callback = "http://192.168.32.129/postvalidate";
         return new RedirectResponse(this.request, "http://passport.dlangchina.com/validate?appid=1000&service="~service~"&token="~token~"&callback="~callback);
     }
 
