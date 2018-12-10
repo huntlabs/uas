@@ -1,0 +1,14 @@
+#test
+#
+# [GET,POST,PUT...]    path    controller.method
+#
+#{domain}
+#
+
+GET                      /check/register                account.access.checkRegister
+POST                     /register                      account.access.register
+POST                     /login                         account.access.login
+GET                      /check/token                   account.public.checkAccessToken
+POST                     /refresh/token                 account.access.refreshAccessToken
+POST                     /logout                        account.public.logout
+
