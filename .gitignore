@@ -1,0 +1,12 @@
+core
+.dub
+.DS_Store
+docs.json
+__dummy.html
+*.o
+*.obj
+dub.selections.json
+dub.userprefs
+config/application.conf
+.idea
+uas
