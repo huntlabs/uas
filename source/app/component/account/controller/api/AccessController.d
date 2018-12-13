@@ -97,7 +97,7 @@ class AccessController : ApiBaseController
         auto userModel = userHelperClass.findAccount(userHelperClass.USERNAME_ACCOUNT, loginValidation.username);
         if (!userModel || userHelperClass.checkPassword(userModel, loginValidation.password))
         {
-            return this.errorMessage(5003, "account_name or password error!");
+            return this.errorMessage(5003, "username or password error!");
         }
         if (!userHelperClass.checkStatus(userModel))
         {
@@ -124,6 +124,7 @@ class AccessController : ApiBaseController
             loginMessage.expires_in = tokenClass.access_token_expires_in;
         }catch(Exception e)
         {
+            logInfo(e);
             return this.errorMessage(-1, "The system is busy. Please try again later!");
         }
         //构造返回数据
@@ -142,12 +143,12 @@ class AccessController : ApiBaseController
         {
             if (!tokenClass.checkRefreshToken(openid, refreshToken))
             {
-                return this.errorMessage(5007, "refresh_token invalid!");
+                return this.errorMessage(5008, "refresh_token invalid!");
             }
             string newAccessToken = tokenClass.refreshAccessToken(openid, refreshToken);
             if (newAccessToken == "")
             {
-                return this.errorMessage(5007, "refresh_token invalid!");
+                return this.errorMessage(5008, "refresh_token invalid!");
             }
             loginMessage.openid = openid;
             loginMessage.access_token = newAccessToken;

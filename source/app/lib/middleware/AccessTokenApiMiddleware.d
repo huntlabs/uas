@@ -74,7 +74,7 @@ class AccessTokenApiMiddleware : Middleware {
             }
             if(!base.checkAccessToken(tokenValidation.openid, tokenValidation.access_token))
             {
-                response.setContent(ApiBaseController.errorMessage(5002, "access_token invalid!").toString);
+                response.setContent(ApiBaseController.errorMessage(5007, "access_token invalid!").toString);
                 return response;
             }
         }
