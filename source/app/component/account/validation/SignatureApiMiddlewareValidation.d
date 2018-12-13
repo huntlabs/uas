@@ -15,6 +15,6 @@ class SignatureApiMiddlewareValidation : Valid
     @Length(8,8,"rnd invalid")
     string rnd; //随机数a-z|A-Z|0-9
 
-    @Length(64,64,"signature invalid")
+    @Length(32,32,"signature invalid")
     string signature; //签名
 }

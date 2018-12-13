@@ -42,14 +42,19 @@ class UserHelper
         userModel.updated = curtime;
         userModel.created_ip = ip;
         userModel.created = curtime;
-        auto res = _userRep.save(userModel);
-        if(!res)
+        try{
+            bool resultInsert = _userRep.insertInto(userModel);
+            if(!resultInsert)
+            {
+                return false;
+            }
+            if(appid)
+            {
+                this.findOpenidOrCreateByAppid(appid, userModel.unid);
+            }
+        }catch(Exception e)
         {
             return false;
-        }
-        if(appid)
-        {
-            this.findOpenidOrCreateByAppid(appid, userModel.unid);
         }
         return true;
     }

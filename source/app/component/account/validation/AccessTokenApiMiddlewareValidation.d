@@ -9,7 +9,7 @@ class AccessTokenApiMiddlewareValidation : Valid
     @Length(16,16,"appid invalid")
     string appid;
 
-    @Length(64,64,"access_token invalid1")
+    @Length(64,64,"access_token invalid")
     string access_token;
 
     @Length(32,32,"openid invalid")

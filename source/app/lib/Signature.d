@@ -1,5 +1,6 @@
-module app.lib.signature;
+module app.lib.Signature;
 
+import std.digest.md;
 import std.digest.sha;
 import std.algorithm.sorting;
 
@@ -29,6 +30,6 @@ string signature1(string[string] parameters, string secret)
         }
         str ~= val ~ "=" ~ parameters[val];
     }
-    ubyte[] hash = sha256Of(secret ~ str ~ secret);
+    ubyte[] hash = md5Of(secret ~ str ~ secret);
     return toHexString(hash);
 }

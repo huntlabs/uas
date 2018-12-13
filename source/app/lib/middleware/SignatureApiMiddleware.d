@@ -51,7 +51,7 @@ class SignatureApiMiddleware : Middleware {
             }
             if(!base.checkRequestSignature(parameters))
             {
-                response.setContent(ApiBaseController.errorMessage(5002, "signature error!").toString);
+                response.setContent(ApiBaseController.errorMessage(5002, "signature invalid!").toString);
                 return response;
             }
         }
