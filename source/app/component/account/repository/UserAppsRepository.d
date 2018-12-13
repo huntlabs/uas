@@ -33,7 +33,7 @@ class UserAppsRepository : EntityRepository!(UserApps, int)
 
     int updatedLogin(string openid)
     {
-        int curtime = time();
+        int curtime = cast(int)time();
         string ip = getClientIp();
         auto update = this.getEntityManager.createQuery!(UserApps)(" update UserApps u set u.login_number = login_number+1, u.last_login_ip = :ip, u.last_login_time = :curtime, u.updated_ip = :ip, u.updated = :curtime  where u.openid = :openid limit 1 ");
         update.setParameter("openid", openid);

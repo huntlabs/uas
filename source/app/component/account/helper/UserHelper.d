@@ -29,7 +29,7 @@ class UserHelper
 
     bool registerUsername(string username, string password, string appid = "")
     {
-        int curtime = time();
+        int curtime = cast(int)time();
         string ip = getClientIp();
         User userModel = new User();
         string salt = toLower(toHexString(getRandom(8)));
@@ -106,7 +106,7 @@ class UserHelper
 
     string findOpenidOrCreateByAppid(string appid, string unid)
     {
-        int curtime = time();
+        int curtime = cast(int)time();
         string ip = getClientIp();
         auto userApps = _userAppsRep.findUserAppsByUnid(appid, unid);
         if(!userApps)

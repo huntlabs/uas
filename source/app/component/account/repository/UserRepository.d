@@ -24,7 +24,7 @@ class UserRepository : EntityRepository!(User, int)
 
     int updatedLogin(string unid)
     {
-        int curtime = time();
+        int curtime = cast(int)time();
         string ip = getClientIp();
         auto update = this.getEntityManager.createQuery!(User)(" update User u set u.login_number = login_number+1, u.last_login_ip = :ip, u.last_login_time = :curtime, u.updated_ip = :ip, u.updated = :curtime  where u.unid = :unid limit 1 ");
         update.setParameter("unid", unid);
