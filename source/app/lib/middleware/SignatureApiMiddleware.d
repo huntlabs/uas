@@ -27,12 +27,12 @@ class SignatureApiMiddleware : Middleware {
         response.setHeader("content-type","application/json;charset=utf-8");
         if(!canFind(whiteMCA, request.getMCA()))
         {
-            string[string] parames = request.all();
+            string[string] parameters = request.all();
             auto validation = new SignatureApiMiddlewareValidation();
-            validation.appid = "appid" in parames ? parames["appid"] : "";
-            validation.timestamp = "timestamp" in parames ? parames["timestamp"] : "";
-            validation.rnd = "rnd" in parames ? parames["rnd"] : "";
-            validation.signature = "signature" in parames ? parames["signature"] : "";
+            validation.appid = "appid" in parameters ? parameters["appid"] : "";
+            validation.timestamp = "timestamp" in parameters ? parameters["timestamp"] : "";
+            validation.rnd = "rnd" in parameters ? parameters["rnd"] : "";
+            validation.signature = "signature" in parameters ? parameters["signature"] : "";
 
             auto resultValidation = validation.valid();
             if (resultValidation.isValid() == false)
@@ -44,12 +44,12 @@ class SignatureApiMiddleware : Middleware {
                 }
             }
             auto base = new BaseApiMiddleware();
-            if(!base.checkAppidAccess(parames["appid"]))
+            if(!base.checkAppidAccess(parameters["appid"]))
             {
                 response.setContent(ApiBaseController.errorMessage(5001, "appid Unauthorized Access!").toString);
                 return response;
             }
-            if(!base.checkRequestSignature(parames))
+            if(!base.checkRequestSignature(parameters))
             {
                 response.setContent(ApiBaseController.errorMessage(5002, "signature error!").toString);
                 return response;

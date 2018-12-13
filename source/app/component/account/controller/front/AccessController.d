@@ -1,13 +1,11 @@
-module app.component.account.controller.front.IndexController;
+module app.component.account.controller.front.AccessController;
 import hunt.framework;
-import hunt.framework.http.Request;
-import hunt.framework.http.Response;
-import hunt.logging;
-import hunt.http.codec.http.model.HttpMethod;
+import app.lib.controller.FrontBaseController;
 import hunt.http.codec.http.model.Cookie;
 import std.digest.md;
+import hunt.framework.utils.random;
 
-class IndexController : Controller
+class AccessController : FrontBaseController
 {
 	mixin MakeController;
 	this()
@@ -27,59 +25,63 @@ class IndexController : Controller
     //    return view.render("user/userCenter");
     //}
     //
-    //@Action
-    //Response login()
-    //{
-    //    // MonoTime before = MonoTime.currTime;
-    //    response.setHeader("content-type","text/html;charset=utf-8");
-    //
-    //    if(toUpper(request.method()) == HttpMethod.POST.asString())
-    //    {
-    //        string email = request.post("email","");
-    //        string password = request.post("password","");
-    //        string service = request.post("service","");
-    //        string callback = request.post("callback","");
-    //
-    //        auto repository = new UserRepository;
-    //        auto find = repository.findByEmail(email)?repository.findByEmail(email):null;
-    //        if(find)
-    //        {
-    //            logInfo(generateUserPassword(password, find.salt));
-    //            if(find.password == generateUserPassword(password, find.salt)){
-    //                logInfo("login");
-    //                auto md5 = new MD5Digest();
-    //                ubyte[] hashKey = md5.digest(cast(string) serialize!User(find));
-    //                auto cookie = new Cookie("DFTGC", toHexString(hashKey),0 ,"/" ,"192.168.32.129",false ,false);
-    //                string st = md5.digest(time().to!string).toHexString;
-    //                HttpSession session = request.session(true);
-    //                session.set(toHexString(hashKey), cast(string) serialize!User(find));
-    //                session.set(st, service);
-    //                request.flush();
-    //                return new RedirectResponse(this.request,callback~"?st="~st).withCookie(cookie);
-    //            }else{
-    //                view.assign("error_messages", ["两次输入密码不一致"]);
-    //                view.assign("service", service);
-    //                view.assign("callback", callback);
-    //                return response.setContent(view.render("user/login"));
-    //            }
-    //        }else{
-    //            view.assign("service", service);
-    //            view.assign("callback", callback);
-    //            return response.setContent(view.render("user/register"));
-    //        }
-    //    }
-    //
-    //    view.assign("title","登录 - 授权中心");
-    //    // MonoTime after4 = MonoTime.currTime;
-    //    // Duration timeElapsed4 = after4 - before;
-    //    // logInfo(timeElapsed4);
-    //    // view.assign("elapsed", request.elapsed);
-    //    string service = request.get("service","");
-    //    string callback = request.get("callback","");
-    //    view.assign("service", service);
-    //    view.assign("callback", callback);
-    //    return response.setContent(view.render("user/login"));
-    //}
+    @Action
+    Response login()
+    {
+        //string[] parameters = ;
+        if(request.method() == "POST")
+        {
+        //    string email = request.post("email","");
+        //    string password = request.post("password","");
+        //    string service = request.post("service","");
+        //    string callback = request.post("callback","");
+        //
+        //    auto repository = new UserRepository;
+        //    auto find = repository.findByEmail(email)?repository.findByEmail(email):null;
+        //    if(find)
+        //    {
+        //        logInfo(generateUserPassword(password, find.salt));
+        //        if(find.password == generateUserPassword(password, find.salt)){
+        //            logInfo("login");
+        //            auto md5 = new MD5Digest();
+        //            ubyte[] hashKey = md5.digest(cast(string) serialize!User(find));
+        //            auto cookie = new Cookie("DFTGC", toHexString(hashKey),0 ,"/" ,"192.168.32.129",false ,false);
+        //            string st = md5.digest(time().to!string).toHexString;
+        //            HttpSession session = request.session(true);
+        //            session.set(toHexString(hashKey), cast(string) serialize!User(find));
+        //            session.set(st, service);
+        //            request.flush();
+        //            return new RedirectResponse(this.request,callback~"?st="~st).withCookie(cookie);
+        //        }else{
+        //            view.assign("error_messages", ["两次输入密码不一致"]);
+        //            view.assign("service", service);
+        //            view.assign("callback", callback);
+        //            return response.setContent(view.render("user/login"));
+        //        }
+        //    }else{
+        //        view.assign("service", service);
+        //        view.assign("callback", callback);
+        //        return response.setContent(view.render("user/register"));
+        //    }
+        }
+        //
+        //view.assign("title","登录 - 授权中心");
+        //// MonoTime after4 = MonoTime.currTime;
+        //// Duration timeElapsed4 = after4 - before;
+        //// logInfo(timeElapsed4);
+        //// view.assign("elapsed", request.elapsed);
+        //string service = request.get("service","");
+        //string callback = request.get("callback","");
+        //view.assign("service", service);
+        //view.assign("callback", callback);
+        if(request.get("cookie", "") != "")
+        {
+            auto cookie = new Cookie("DFTGC", toHexString(getRandom(32)),100 ,"/" ,".ptdev.cn");
+            return new RedirectResponse("/login").withCookie(cookie);
+        }
+
+        return response.setContent(view.render("user/login"));
+    }
     //
     //@Action
     //Response register()

@@ -1,24 +1,24 @@
 {
 	"dub": {
-		"lastUpgrade": "2018-12-10T09:46:03.6521995",
+		"lastUpgrade": "2018-12-12T17:51:16.6756645",
 		"cachedUpgrades": {
 			"hunt-security": "0.0.4",
 			"hunt-framework": "~master",
 			"libmemcached": "1.1.1",
-			"hunt-stomp": "0.0.1-beta.1",
-			"hunt-database": "0.2.2",
+			"hunt-database": "1.0.2",
 			"collie": "0.10.16",
-			"hunt-http": "0.0.9",
+			"boringssl": "0.0.1",
 			"tinyredis": "2.0.6",
 			"openssl": "1.1.6+1.0.1g",
-			"hunt-entity": "1.6.2",
-			"hunt": "1.0.0-rc.4",
+			"hunt-entity": "2.0.4",
+			"hunt": "1.0.0-rc.5",
 			"kiss": "0.4.9",
-			"hunt-net": "0.0.8",
-			"hunt-cache": "0.1.0",
+			"hunt-net": "0.0.9",
+			"hunt-stomp": "0.0.1-beta.1",
 			"hunt-sql": "1.0.1",
-			"boringssl": "0.0.1",
+			"hunt-http": "0.0.10",
 			"rocksdb": "0.0.7",
+			"hunt-cache": "0.2.1",
 			"dredis": "0.0.9"
 		}
 	}

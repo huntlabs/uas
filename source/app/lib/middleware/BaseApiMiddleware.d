@@ -14,16 +14,16 @@ class BaseApiMiddleware
         return true;
     }
 
-    bool checkRequestSignature(string[string] parames)
+    bool checkRequestSignature(string[string] parameters)
     {
         //获取appid相关信息 验证签名
-        auto appInfo = (new AppsRepository).findByAppid(parames["appid"]);
+        auto appInfo = (new AppsRepository).findByAppid(parameters["appid"]);
         logInfo(appInfo);
-        if(appInfo && toLower(parames["signature"]) == toLower(signature1(parames, appInfo.appsecret)))
+        if(appInfo && toLower(parameters["signature"]) == toLower(signature1(parameters, appInfo.appsecret)))
         {
             return true;
         }
-        appInfo && logError(parames["signature"]~" : "~signature1(parames, appInfo.appsecret));
+        appInfo && logError(parameters["signature"]~" : "~signature1(parameters, appInfo.appsecret));
         return false;
     }
 

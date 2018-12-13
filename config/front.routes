@@ -5,6 +5,11 @@
 #{domain}
 #
 
+
+
+GET                     /login                         account.access.login
+
+
 GET                     /profile                       user.user.profile
 
 GET                     /                              user.user.login

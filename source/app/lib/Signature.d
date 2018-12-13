@@ -9,11 +9,11 @@ import std.algorithm.sorting;
 3、拼接密钥 secret ~ abc=test1&abb=test2&abc=test3 ~ secret
 4、sha256加密
 */
-string signature1(string[string] parames, string secret)
+string signature1(string[string] parameters, string secret)
 {
     string str = "";
     string[] arr;
-    foreach(key,val; parames)
+    foreach(key,val; parameters)
     {
         if(key != "signature")
         {
@@ -27,7 +27,7 @@ string signature1(string[string] parames, string secret)
         {
             str ~= "&";
         }
-        str ~= val ~ "=" ~ parames[val];
+        str ~= val ~ "=" ~ parameters[val];
     }
     ubyte[] hash = sha256Of(secret ~ str ~ secret);
     return toHexString(hash);

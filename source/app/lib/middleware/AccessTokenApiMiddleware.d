@@ -29,12 +29,12 @@ class AccessTokenApiMiddleware : Middleware {
         response.setHeader("content-type","application/json;charset=utf-8");
         if(!canFind(whiteMCA, request.getMCA()))
         {
-            string[string] parames = request.all();
+            string[string] parameters = request.all();
             auto signatureValidation = new SignatureApiMiddlewareValidation();
-            signatureValidation.appid = "appid" in parames ? parames["appid"] : "";
-            signatureValidation.timestamp = "timestamp" in parames ? parames["timestamp"] : "";
-            signatureValidation.rnd = "rnd" in parames ? parames["rnd"] : "";
-            signatureValidation.signature = "signature" in parames ? parames["signature"] : "";
+            signatureValidation.appid = "appid" in parameters ? parameters["appid"] : "";
+            signatureValidation.timestamp = "timestamp" in parameters ? parameters["timestamp"] : "";
+            signatureValidation.rnd = "rnd" in parameters ? parameters["rnd"] : "";
+            signatureValidation.signature = "signature" in parameters ? parameters["signature"] : "";
 
             auto resultSignatureValidation = signatureValidation.valid();
             if (resultSignatureValidation.isValid() == false)
@@ -47,9 +47,9 @@ class AccessTokenApiMiddleware : Middleware {
             }
 
             auto tokenValidation = new AccessTokenApiMiddlewareValidation();
-            tokenValidation.appid = "appid" in parames ? parames["appid"] : "";
-            tokenValidation.openid = "openid" in parames ? parames["openid"] : "";
-            tokenValidation.access_token = "access_token" in parames ? parames["access_token"] : "";
+            tokenValidation.appid = "appid" in parameters ? parameters["appid"] : "";
+            tokenValidation.openid = "openid" in parameters ? parameters["openid"] : "";
+            tokenValidation.access_token = "access_token" in parameters ? parameters["access_token"] : "";
 
             auto resultTokenValidation = tokenValidation.valid();
             if (resultTokenValidation.isValid() == false)
@@ -62,12 +62,12 @@ class AccessTokenApiMiddleware : Middleware {
             }
 
             auto base = new BaseApiMiddleware();
-            if(!base.checkAppidAccess(parames["appid"]))
+            if(!base.checkAppidAccess(parameters["appid"]))
             {
                 response.setContent(ApiBaseController.errorMessage(5001, "appid Unauthorized Access!").toString);
                 return response;
             }
-            if(!base.checkRequestSignature(parames))
+            if(!base.checkRequestSignature(parameters))
             {
                 response.setContent(ApiBaseController.errorMessage(5002, "signature invalid!").toString);
                 return response;
