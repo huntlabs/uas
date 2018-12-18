@@ -21,12 +21,4 @@ class PublicController : ApiBaseController
         return this.resultMessage();
     }
 
-    @Action
-    JSONValue logout()
-    {
-        string openid = request.post("openid");
-        auto tokenHelperClass = new TokenHelper();
-        tokenHelperClass.deleteToken(openid);
-        return this.resultMessage();
-    }
 }

@@ -12,3 +12,4 @@ dub.userprefs
 .idea
 config/application.conf
 .dub/version.json
+.dub/dub.json

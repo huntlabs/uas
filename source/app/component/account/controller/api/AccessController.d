@@ -161,4 +161,16 @@ class AccessController : ApiBaseController
         return this.resultMessage(loginMessage);
     }
 
+    @Action
+    JSONValue logout()
+    {
+        string openid = request.post("openid", "");
+        string accessToken = request.post("access_token", "");
+        auto tokenHelperClass = new TokenHelper();
+        if(openid != "" && accessToken != "" && tokenHelperClass.checkAccessToken(openid, accessToken))
+        {
+            tokenHelperClass.deleteToken(openid);
+        }
+        return this.resultMessage();
+    }
 }
