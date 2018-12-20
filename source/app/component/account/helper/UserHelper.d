@@ -1,8 +1,10 @@
 module app.component.account.helper.UserHelper;
 import app.component.account.repository.UserRepository;
 import app.component.account.repository.UserAppsRepository;
+import app.component.account.repository.UserInfoRepository;
 import app.component.account.model.UserApps;
 import app.component.account.model.User;
+import app.component.account.model.UserInfo;
 import std.uni;
 import std.digest.sha;
 import hunt.datetime;
@@ -14,6 +16,7 @@ class UserHelper
 
     private UserRepository _userRep;
     private UserAppsRepository _userAppsRep;
+    private UserInfoRepository _userInfoRep;
 
     enum MOBILE_ACCOUNT = "mobile";
     enum EMAIL_ACCOUNT = "email";
@@ -25,6 +28,7 @@ class UserHelper
     {
         _userRep = new UserRepository();
         _userAppsRep = new UserAppsRepository();
+        _userInfoRep = new UserInfoRepository();
     }
 
     bool registerUsername(string username, string password, string appid = "")
@@ -106,7 +110,7 @@ class UserHelper
     string findUnidByOpenid(string appid, string openid)
     {
         auto user = _userAppsRep.findUserAppsByOpenid(appid, openid);
-        return user ? user.openid : "";
+        return user ? user.unid : "";
     }
 
     string findOpenidOrCreateByAppid(string appid, string unid)
@@ -137,6 +141,12 @@ class UserHelper
         _userRep.updatedLogin(unid);
         _userAppsRep.updatedLogin(openid);
         return true;
+    }
+
+    UserInfo userInfo(string appid, string openid)
+    {
+        string unid = this.findUnidByOpenid(appid, openid);
+        return _userInfoRep.findByUnid(unid);
     }
 
     private string generatePassword(string password, string salt)
