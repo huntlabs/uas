@@ -28,12 +28,13 @@ class PublicController : ApiBaseController
         string appid = request.get("appid", "");
         string openid = request.get("openid", "");
         auto userHelperClass = new UserHelper();
-        auto userInfo = userHelperClass.userInfo(appid, openid);
+        string unid = userHelperClass.findUnidByOpenid(appid, openid);
+        auto userInfo = userHelperClass.userInfo(unid);
         auto resultMessage = new UserInfoMessage();
+        resultMessage.openid = openid;
+        resultMessage.unid = unid;
         if(userInfo)
         {
-            resultMessage.openid = openid;
-            resultMessage.unid = userInfo.unid;
             resultMessage.nickname = userInfo.nickname;
             resultMessage.gender = userInfo.gender;
             resultMessage.birthday = userInfo.birthday;

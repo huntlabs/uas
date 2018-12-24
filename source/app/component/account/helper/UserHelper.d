@@ -143,9 +143,8 @@ class UserHelper
         return true;
     }
 
-    UserInfo userInfo(string appid, string openid)
+    UserInfo userInfo(string unid)
     {
-        string unid = this.findUnidByOpenid(appid, openid);
         return _userInfoRep.findByUnid(unid);
     }
 
