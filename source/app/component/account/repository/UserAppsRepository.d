@@ -41,4 +41,17 @@ class UserAppsRepository : EntityRepository!(UserApps, int)
         update.setParameter("curtime", curtime);
         return update.exec();
     }
+
+    bool insertInto(UserApps userApps)
+    {
+        string fieldkey = ""~Field.appid~","~ Field.unid~","~ Field.openid~","~ Field.login_number~","~ Field.last_login_ip~","~ Field.last_login_time~ ","~ Field.updated_ip~","~ Field.updated~","~ Field.created_ip~","~ Field.created ~"";
+        string values = "'"~userApps.appid~"','"~ userApps.unid ~"','"~ userApps.openid ~"','"~ userApps.login_number.to!string~"','"~ userApps.last_login_ip~"','"~ userApps.last_login_time.to!string~ "','"~ userApps.updated_ip~"','"~ userApps.updated.to!string~"','"~ userApps.created_ip~"','"~ userApps.created.to!string ~"'";
+        auto ret = this.getEntityManager().getSession().getTransaction().execute("insert into "~Field._tableName~" ("~fieldkey~") VALUES ("~values~")");
+        if(ret != 1)
+        {
+            return false;
+        }
+        return true;
+    }
+
 }

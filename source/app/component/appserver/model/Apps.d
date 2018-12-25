@@ -18,6 +18,10 @@ class Apps : Model
 
     string appsecret;
 
+    int access_token_expires_in;
+
+    int refresh_token_expires_in;
+
     int updated;
 
     int created;

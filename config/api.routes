@@ -8,9 +8,10 @@
 GET                      /check/register                account.access.checkRegister
 POST                     /register                      account.access.register
 POST                     /login                         account.access.login
+POST                     /send/code                     account.access.sendCode
+POST                     /smslogin                      account.access.smslogin
 POST                     /refresh/token                 account.access.refreshAccessToken
 POST                     /logout                        account.access.logout
 
 GET                      /check/token                   account.public.checkAccessToken
 GET                      /user/info                     account.public.userInfo
-GET                      /test                          test.test.test

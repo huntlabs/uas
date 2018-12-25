@@ -16,6 +16,6 @@ class CheckRegister : Valid
     @Length(8,8,"rnd length must be {{min}} and {{max}}")
     string rnd; //随机数a-z|A-Z|0-9
 
-    @Length(40,40,"signature error")
+    @Length(40,40,"signature invalid")
     string signature; //签名
 }

@@ -21,7 +21,7 @@ class UserRepository : EntityRepository!(User, int)
     {
         string fieldkey = ""~Field.unid~","~ Field.mobile~","~ Field.email~","~ Field.username~","~ Field.password~","~ Field.salt~","~ Field.status~","~ Field.login_number~","~ Field.last_login_ip~","~ Field.last_login_time~ ","~ Field.updated_ip~","~ Field.updated~","~ Field.created_ip~","~ Field.created ~"";
         string values = "'"~user.unid~"',"~ (user.mobile == "" ? "null" : "'"~user.mobile~"'") ~","~ (user.email == "" ? "null" : "'"~user.email~"'") ~",'"~ user.username~"','"~ user.password~"','"~ user.salt~"','"~ user.status.to!string~"','"~ user.login_number.to!string~"','"~ user.last_login_ip~"','"~ user.last_login_time.to!string~ "','"~ user.updated_ip~"','"~ user.updated.to!string~"','"~ user.created_ip~"','"~ user.created.to!string ~"'";
-        auto ret = this._entityManager.getDatabase().execute("insert into "~Field._tableName~" ("~fieldkey~") VALUES ("~values~")");
+        auto ret = this.getEntityManager().getSession().getTransaction().execute("insert into "~Field._tableName~" ("~fieldkey~") VALUES ("~values~")");
         if(ret != 1)
         {
             return false;

@@ -4,6 +4,7 @@ import hunt.framework;
 
 import app.lib.controller.ApiBaseController;
 import app.component.account.validation.LoginValidation;
+import app.component.account.validation.SmsLoginValidation;
 import app.component.account.validation.RegisterValidation;
 import app.component.account.validation.CheckRegisterValidation;
 
@@ -13,6 +14,7 @@ import std.json;
 import app.component.account.helper.TokenHelper;
 import app.component.account.helper.UserHelper;
 import app.lib.middleware.SignatureApiMiddleware;
+import std.algorithm.searching;
 
 class AccessController : ApiBaseController
 {
@@ -67,19 +69,111 @@ class AccessController : ApiBaseController
             return this.errorMessage(5005, "Account has been registered!");
         }
         //注册账户
-        bool res = userHelperClass.registerUsername(registerValidation.username, registerValidation.password, appid);
-        if (!res)
+        auto res = userHelperClass.registerUsername(registerValidation.username, registerValidation.password, appid);
+        if (res.unid == "")
         {
-            return this.errorMessage(5006, "Account registration failed. Please try again later!");
+            return this.errorMessage(-1, "The system is busy. Please try again later!");
         }
         return this.resultMessage();
     }
 
     @Action
+    JSONValue sendCode()
+    {
+        string mobile = request.post("mobile", "");
+        if(mobile == "")
+        {
+            return this.errorMessage(5000, "mobile matching failure!");
+        }
+        auto userHelperClass = new UserHelper();
+        userHelperClass.sendSmsLoginCode(mobile);
+        return this.resultMessage();
+    }
+    @Action
+    JSONValue smsLogin()
+    {
+        string appid = request.post("appid");
+        auto smsLoginValidation = new SmsLoginValidation();
+        smsLoginValidation.mobile = request.post("mobile");
+        smsLoginValidation.code = request.post("code");
+        auto result = smsLoginValidation.valid();
+        if (result.isValid() == false)
+        {
+            foreach (key, message; result.messages())
+            {
+                return this.errorMessage(5000, message);
+            }
+        }
+
+        auto userHelperClass = new UserHelper();
+        //校验验证码是否正确
+        if (!userHelperClass.checkSmsLoginCode(smsLoginValidation.mobile, smsLoginValidation.code))
+        {
+            auto num = userHelperClass.antiBrushRetryNum(smsLoginValidation.mobile);
+            if(num == 0)
+            {
+                return this.errorMessage(5003, "There are too many login errors. Please try again in "~(userHelperClass.ANTI_BRUSH_FROZEN_SECOND/60).to!string~" minutes!");
+            }
+            return this.errorMessage(5003, "code invalid!");
+        }
+        //验证账户是否注册
+        auto userModel = userHelperClass.findAccount(userHelperClass.MOBILE_ACCOUNT, smsLoginValidation.mobile);
+        string unid,openid;
+        if(!userModel)
+        {
+            auto ret = userHelperClass.registerMobile(smsLoginValidation.mobile, appid);
+            //手机账户首次注册失败
+            if(ret.unid == "")
+            {
+                return this.errorMessage(-1, "1The system is busy. Please try again later!");
+            }
+            unid = ret.unid;
+            openid = ret.openid;
+        }else
+        {
+            if (!userHelperClass.checkStatus(userModel))
+            {
+                return this.errorMessage(5004, "Account Closed!");
+            }
+            unid = userModel.unid;
+            //验证账户是否与平台相关联，如果无关联则创建关联信息并生成openid
+            openid = userHelperClass.findOpenidOrCreateByAppid(appid, userModel);
+        }
+        logInfo(unid ~ " ~ " ~ openid);
+        //二次验证是否注册成功
+        if(unid == "" || openid == "")
+        {
+            return this.errorMessage(-1, "2The system is busy. Please try again later!");
+        }
+        //更新登陆信息
+        auto appsInfo = (new AppsRepository()).findByAppid(appid);
+        auto tokenClass = new TokenHelper();
+        auto loginMessage = new LoginMessage();
+        try
+        {
+            //根据应用配置的过期时间动态调整token的过期时间
+            tokenClass.setAccessTokenExpiresIn(appsInfo.access_token_expires_in);
+            tokenClass.setRefreshTokenExpiresIn(appsInfo.refresh_token_expires_in);
+            //生成access_token
+            string accessToken = tokenClass.saveAccessToken(openid);
+            //生成refresh_token
+            string refreshToken = tokenClass.saveRefreshToken(openid);
+            loginMessage.openid = openid;
+            loginMessage.access_token = accessToken;
+            loginMessage.refresh_token = refreshToken;
+            loginMessage.expires_in = tokenClass.access_token_expires_in;
+        }catch(Exception e)
+        {
+            logInfo(e);
+            return this.errorMessage(-1, "The system is busy. Please try again later!");
+        }
+        //构造返回数据
+        return this.resultMessage(loginMessage);
+    }
+
+    @Action
     JSONValue login()
     {
-        logInfo(request.clientAddress());
-        logInfo(request._connection.getRemoteAddress());
         string appid = request.post("appid");
         auto loginValidation = new LoginValidation();
         loginValidation.username = request.post("username");
@@ -95,18 +189,23 @@ class AccessController : ApiBaseController
         auto userHelperClass = new UserHelper();
         //验证账户
         auto userModel = userHelperClass.findAccount(userHelperClass.USERNAME_ACCOUNT, loginValidation.username);
-        if (!userModel || userHelperClass.checkPassword(userModel, loginValidation.password))
+        if (userHelperClass.checkPassword(userModel, loginValidation.password))
         {
-            return this.errorMessage(5003, "username or password error!");
+            auto num = userHelperClass.antiBrushRetryNum(loginValidation.username);
+            if(num == 0)
+            {
+                return this.errorMessage(5003, "There are too many login errors. Please try again in "~(userHelperClass.ANTI_BRUSH_FROZEN_SECOND/60).to!string~" minutes!");
+            }
+            return this.errorMessage(5003, "Username or password error, You can try again "~num.to!string~" times!");
         }
         if (!userHelperClass.checkStatus(userModel))
         {
             return this.errorMessage(5004, "Account Closed!");
         }
         //获取账户unid
-        string unid = userHelperClass.findUnidByAccountName(userHelperClass.USERNAME_ACCOUNT, loginValidation.username);
+        string unid = userModel.unid;
         //获取账户openid,首次登陆app创建关系
-        string openid = userHelperClass.findOpenidOrCreateByAppid(appid, unid);
+        string openid = userHelperClass.findOpenidOrCreateByAppid(appid, userModel);
 
         auto tokenClass = new TokenHelper();
         //更新登陆信息

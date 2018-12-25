@@ -1,6 +1,6 @@
 {
 	"dub": {
-		"lastUpgrade": "2018-12-24T10:28:43.4921749",
+		"lastUpgrade": "2018-12-25T10:32:34.55609",
 		"cachedUpgrades": {
 			"hunt-security": "0.0.4",
 			"hunt-framework": "~master",

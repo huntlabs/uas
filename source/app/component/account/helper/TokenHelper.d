@@ -12,12 +12,28 @@ class TokenHelper
 {
     const REFRESH_TOKEN_TYPE = "api_refresh_token";
     const ACCESS_TOKEN_TYPE = "api_access_token";
-    int access_token_expires_in = 7200; //access_token过期时间(秒)
+    int access_token_expires_in = 86400; //access_token过期时间(秒)
     int refresh_token_expires_in = 2592000; //refresh_token过期时间(秒)
 
     this()
     {
 
+    }
+
+    void setAccessTokenExpiresIn(int second)
+    {
+        if(second > 0)
+        {
+            this.access_token_expires_in = second;
+        }
+    }
+
+    void setRefreshTokenExpiresIn(int second)
+    {
+        if(second > 0)
+        {
+            this.refresh_token_expires_in = second;
+        }
     }
 
     string generateToken(string openid)
