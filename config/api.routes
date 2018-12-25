@@ -15,3 +15,6 @@ POST                     /logout                        account.access.logout
 
 GET                      /check/token                   account.public.checkAccessToken
 GET                      /user/info                     account.public.userInfo
+
+
+GET                      /test                          test.test.testSms

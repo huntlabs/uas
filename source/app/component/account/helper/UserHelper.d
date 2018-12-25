@@ -78,7 +78,6 @@ class UserHelper
     bool sendSmsLoginCode(string mobile)
     {
         string cacheCode =  Application.getInstance().cache().get(SMS_CODE_CACHE_PREFIX ~ mobile);
-        logInfo(cacheCode);
         if(cacheCode != "")
         {
             return true;
@@ -109,7 +108,6 @@ class UserHelper
     bool checkSmsLoginCode(string mobile, string code)
     {
         string cacheCode = Application.getInstance().cache().get(SMS_CODE_CACHE_PREFIX ~ mobile);
-        logInfo(cacheCode ~ ":" ~ code);
         if(code == "" || cacheCode == "" || cacheCode != code)
         {
             return false;
@@ -129,6 +127,10 @@ class UserHelper
 
     bool checkPassword(User user, string password)
     {
+        if(user)
+        {
+            logInfo(this.generatePassword(password, user.salt));
+        }
         if(!user || this.generatePassword(password, user.salt) != user.password)
         {
             return false;
@@ -148,7 +150,6 @@ class UserHelper
     int antiBrushRetryNum(string username)
     {
         string cacheNum = Application.getInstance().cache().get(ANTI_BRUSH_CACHE_PREFIX ~ username);
-        logInfo(cacheNum);
         int num = cacheNum == "" ? 0 : cacheNum.to!int;
         num++;
         int surplusNum = (ANTI_BRUSH_NUM - num);
@@ -258,7 +259,7 @@ class UserHelper
     private User registerBase(User userModel)
     {
         int curtime = cast(int)time();
-        string salt = toLower(toHexString(getRandom(8)));
+        string salt = toLower(toHexString(getRandom(16)))[0 .. 8];
         string ip = getClientIp();
         userModel.salt = salt;
         userModel.status = STATUS_1;

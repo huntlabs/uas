@@ -2,8 +2,7 @@ module app.component.account.controller.front.AccessController;
 import hunt.framework;
 import app.lib.controller.FrontBaseController;
 import hunt.http.codec.http.model.Cookie;
-import std.digest.md;
-import hunt.framework.utils.random;
+import app.component.account.helper.UserHelper;
 
 class AccessController : FrontBaseController
 {
@@ -29,8 +28,34 @@ class AccessController : FrontBaseController
     Response login()
     {
         //string[] parameters = ;
+        string redirectUri = request.get("redirect_uri", "");
         if(request.method() == "POST")
         {
+            string username = request.post("username", "");
+            string password = request.post("password", "");
+
+            string mobile = request.post("username", "");
+            string code = request.post("code", "");
+
+            auto userHelper = new UserHelper();
+            if(username != "" && password != "")
+            {
+                auto user = userHelper.findAccount(userHelper.USERNAME_ACCOUNT, username);
+                logInfo(user.password);
+                logInfo(username);
+                logInfo(password);
+                if(!userHelper.checkPassword(user, password))
+                {
+                    logInfo("密码错误");
+                    response.writeContent("<script>alert('username or password error!');</script>");
+                    return response.setContent(view.render("user/login"));
+                }
+            }
+
+            if(mobile != "" && code != "")
+            {
+
+            }
         //    string email = request.post("email","");
         //    string password = request.post("password","");
         //    string service = request.post("service","");
@@ -74,11 +99,11 @@ class AccessController : FrontBaseController
         //string callback = request.get("callback","");
         //view.assign("service", service);
         //view.assign("callback", callback);
-        if(request.get("cookie", "") != "")
-        {
-            auto cookie = new Cookie("DFTGC", toHexString(getRandom(32)),100 ,"/" ,".ptdev.cn");
-            return new RedirectResponse("/login").withCookie(cookie);
-        }
+        //if(request.get("cookie", "") != "")
+        //{
+        //    auto cookie = new Cookie("DFTGC", toHexString(getRandom(32)),100 ,"/" ,".ptdev.cn");
+        //    return new RedirectResponse("/login").withCookie(cookie);
+        //}
 
         return response.setContent(view.render("user/login"));
     }

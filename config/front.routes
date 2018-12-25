@@ -8,6 +8,7 @@
 
 
 GET                     /login                         account.access.login
+POST                    /login                         account.access.login
 
 
 GET                     /profile                       user.user.profile

@@ -139,7 +139,6 @@ class AccessController : ApiBaseController
             //验证账户是否与平台相关联，如果无关联则创建关联信息并生成openid
             openid = userHelperClass.findOpenidOrCreateByAppid(appid, userModel);
         }
-        logInfo(unid ~ " ~ " ~ openid);
         //二次验证是否注册成功
         if(unid == "" || openid == "")
         {
@@ -164,7 +163,6 @@ class AccessController : ApiBaseController
             loginMessage.expires_in = tokenClass.access_token_expires_in;
         }catch(Exception e)
         {
-            logInfo(e);
             return this.errorMessage(-1, "The system is busy. Please try again later!");
         }
         //构造返回数据
@@ -189,7 +187,7 @@ class AccessController : ApiBaseController
         auto userHelperClass = new UserHelper();
         //验证账户
         auto userModel = userHelperClass.findAccount(userHelperClass.USERNAME_ACCOUNT, loginValidation.username);
-        if (userHelperClass.checkPassword(userModel, loginValidation.password))
+        if (!userHelperClass.checkPassword(userModel, loginValidation.password))
         {
             auto num = userHelperClass.antiBrushRetryNum(loginValidation.username);
             if(num == 0)
@@ -223,7 +221,6 @@ class AccessController : ApiBaseController
             loginMessage.expires_in = tokenClass.access_token_expires_in;
         }catch(Exception e)
         {
-            logInfo(e);
             return this.errorMessage(-1, "The system is busy. Please try again later!");
         }
         //构造返回数据
